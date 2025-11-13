@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,21 @@ public class AddBookActivity extends AppCompatActivity {
 
     private void saveBook(String title, String author, String status){
         BookController bookController = new BookController(this);
-        bookController.addBook(title,author,status);
+        boolean result = bookController.addBook(title,author,status);
+
+        if(result){
+            Toast.makeText(this, getString(R.string.book_saved_success), Toast.LENGTH_SHORT).show();
+            clearForm();
+        }else{
+            Toast.makeText(this, getString(R.string.error_book_save), Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    private void clearForm(){
+        etTitle.setText("");
+        etAuthor.setText("");
+        spinner.setSelection(0);
     }
 
     private void initViews(){

@@ -18,4 +18,5 @@ public class Book {
 
     @ColumnInfo(name = "status") //Read - To Read
     public String status;
+
 }
