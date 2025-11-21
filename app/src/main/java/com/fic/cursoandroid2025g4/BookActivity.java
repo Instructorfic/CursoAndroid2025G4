@@ -7,30 +7,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fic.cursoandroid2025g4.controller.BookController;
 import com.fic.cursoandroid2025g4.model.Book;
+import com.fic.cursoandroid2025g4.view.BookAdapter;
 
 import java.util.List;
 
 public class BookActivity extends AppCompatActivity {
+
+    private BookAdapter bookAdapter;
+    private BookController bookController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        BookController bookController = new BookController(this);
+        RecyclerView recyclerViewBooks = findViewById(R.id.rvBooks);
+        recyclerViewBooks.setLayoutManager(new LinearLayoutManager(this));
 
-        bookController.addBook("Hábitos atómicos","James Clear","READING");
+        bookAdapter = new BookAdapter();
+        recyclerViewBooks.setAdapter(bookAdapter);
 
+        bookController = new BookController(this);
         List<Book> books = bookController.getAllBooks();
+        bookAdapter.setData(books);
+
+
 
     }
 }
