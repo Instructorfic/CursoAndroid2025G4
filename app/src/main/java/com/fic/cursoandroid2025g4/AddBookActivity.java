@@ -1,5 +1,6 @@
 package com.fic.cursoandroid2025g4;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -51,10 +52,16 @@ public class AddBookActivity extends AppCompatActivity {
         if(result){
             Toast.makeText(this, getString(R.string.book_saved_success), Toast.LENGTH_SHORT).show();
             clearForm();
+            showBookActivity();
         }else{
             Toast.makeText(this, getString(R.string.error_book_save), Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    private void showBookActivity(){
+        Intent intent =  new Intent(AddBookActivity.this, BookActivity.class);
+        startActivity(intent);
     }
 
     private void clearForm(){
